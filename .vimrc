@@ -95,9 +95,12 @@ Plugin 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Vim based file manager
 Plugin 'vifm/vifm.vim', { 'on': 'Vifm' }
 
-" Awesome Git wrappers
+" Awesome Git wrapper
 Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+Plugin 'stsewd/fzf-checkout.vim'
 
 " Your own wiki repository
 Plugin 'vimwiki/vimwiki'
@@ -150,18 +153,6 @@ map <Leader> <Plug>(easymotion-prefix)
 nnoremap <silent> <Leader>gd :YcmCompleter GoTo<CR>
 nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 
-" Synstastic config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_enable_balloons = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump = 1
-
 if executable('ag')
     " Use ag over grep "
     set grepprg=ag\ --nogroup\ --nocolor\ --column
@@ -185,30 +176,14 @@ nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
 nnoremap <leader>cr :CocRestart<CR>
 
-" Resize the current split to at least (90,25) but no more than (140,60)
-" or 50% of the available space otherwise.
-
-function Splitresize()
-"    let hmax = max([winwidth(0), float2nr(&columns*0.50), 90])
-"    let vmax = max([winheight(0), float2nr(&lines*0.50), 25])
-"    if bufname(winbufnr(winnr())) != 'NERD_tree_1'
-"        exe "vertical resize" . (min([hmax, 140]))
-"        exe "resize" . (min([vmax, 60]))
-"    endif    
-endfunction
-
 " Simple navigation between windows
-nnoremap <silent><C-J> <C-W><C-J>:call Splitresize()<CR>
-nnoremap <silent><C-K> <C-W><C-K>:call Splitresize()<CR>
-nnoremap <silent><C-L> <C-W><C-L>:call Splitresize()<CR>
-nnoremap <silent><C-H> <C-W><C-H>:call Splitresize()<CR>
+nnoremap <silent><C-J> <C-W><C-J><CR>
+nnoremap <silent><C-K> <C-W><C-K><CR>
+nnoremap <silent><C-L> <C-W><C-L><CR>
+nnoremap <silent><C-H> <C-W><C-H><CR>
 
 " Remap split screen (vertical && horizontal)
 nnoremap <silent> <leader>v <C-W>v
-
-" Resize window key binding (+ doesnt work, needs press shift)
-"nnoremap <Leader>+ :vertical resize +5<CR>
-"nnoremap <Leader>- :vertical resize -5<CR>
 
 " Disable nabigation keys for studying
 noremap <Up> <nop>
@@ -216,11 +191,20 @@ noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
 
-" Settings for vimspector
+" Settings for vimspector (GDB gui debugger)
 let g:vimspector_enable_mappings = 'HUMAN'
 packadd! vimspector
 
 nmap <F5> <Plug>VimspectorContinue
+
+" Settings for git-fugitive
+nmap <leader>gs :G<CR>
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
+
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+nnoremap <leader>gc :GBranches<CR>
 
 " Shows current time
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
