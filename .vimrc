@@ -1,5 +1,7 @@
 syntax on
 
+set clipboard=unnamedplus
+
 set guicursor=
 set noshowmatch
 set relativenumber
