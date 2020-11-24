@@ -66,6 +66,9 @@ Plugin 'szw/vim-maximizer'
 " Have problems finding header files
 "Plugin 'vim-syntastic/syntastic'
 
+" Static linter
+Plugin 'dense-analysis/ale'
+
 "Additional syntax highlighting for C++ (including C++11/14/17)
 Plugin 'bfrg/vim-cpp-modern'
 
