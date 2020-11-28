@@ -3,10 +3,9 @@ syntax on
 set clipboard=unnamedplus
 
 set guicursor=
-set noshowmatch
-set relativenumber
-set nohlsearch
 set hidden
+set noshowmatch
+set nohlsearch
 set noerrorbells
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -40,7 +39,7 @@ set shortmess+=c
 "highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 set nocompatible              " be iMproved, required
-filetype off                  " required
+filetype plugin on            " required
 
 " set the runtime path to include Vundle and initialize
 " you should install Vundle plugin before try to install plugins
@@ -67,7 +66,8 @@ Plugin 'szw/vim-maximizer'
 "Plugin 'vim-syntastic/syntastic'
 
 " Static linter
-Plugin 'dense-analysis/ale'
+" Have a problems (too much cpu uses)
+"Plugin 'dense-analysis/ale'
 
 "Additional syntax highlighting for C++ (including C++11/14/17)
 Plugin 'bfrg/vim-cpp-modern'
@@ -113,6 +113,11 @@ Plugin 'stsewd/fzf-checkout.vim'
 
 " Your own wiki repository
 Plugin 'vimwiki/vimwiki'
+
+" UML diagrams generator
+Plugin 'aklt/plantuml-syntax'
+Plugin 'weirongxu/plantuml-previewer.vim'
+Plugin 'tyru/open-browser.vim'
 
 " Auto completion for pairs (brackets, quotes and etc.)
 Plugin 'jiangmiao/auto-pairs'
@@ -192,6 +197,7 @@ nnoremap <Leader>7 :7b<CR>
 nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
+nnoremap <Leader>z :bdelete<CR>
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
@@ -206,7 +212,7 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
 nnoremap <leader>cr :CocRestart<CR>
 
 " Simple navigation between windows
-nnoremap <silent><C-J> <C-W><C-J><CR>
+nnoremap <silent><C-J> <C-W><C-J>:call Meow()<CR>
 nnoremap <silent><C-K> <C-W><C-K><CR>
 nnoremap <silent><C-L> <C-W><C-L><CR>
 nnoremap <silent><C-H> <C-W><C-H><CR>
@@ -263,5 +269,17 @@ nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
+" Fugitive helper
+" :Gstatus shows the current 'git status' of the repo.
+" '-' while in the Gstatus view, the '-' will add/remove the file to be committed
+" 'D' while in the Gstatus view, 'D' will show the diff for the file
+" 'cc' while in the Gstatus view, 'cc' will transition the pane into a commit message view
+" :Gblame will show all of the commits for a file along with which developer made the change
+
 " Shows current time
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+
+" bug fix for windows navigation
+fun Meow()
+    echom "Meow!"
+endfun
